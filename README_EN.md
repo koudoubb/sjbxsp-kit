@@ -16,7 +16,7 @@ sjbxsp-kit/
     └── lead-media-script/ Writing ② Scripting: turn a topic or raw material into a record-ready script
 ```
 
-- **sjbxsp** (208K): 10–14 animated card pages, a single-pass voice-over, frame-accurate subtitle sync, and a 3:4 cover with a two-layer safe area. Ships 6 scripts (render / align / gen_subs / compose / make_cover plus 3 `.mjs` templates), 5 reference docs and 3 case studies.
+- **sjbxsp** (208K): 10–14 animated card pages, a single-pass voice-over, frame-accurate subtitle sync, and a 3:4 cover with a two-layer safe area. Ships 5 scripts (render / align / gen_subs / compose / make_cover) plus 3 `.mjs` templates, 4 reference docs and 3 case studies.
 - **SJBXWA** (16K): rewrites structure and rhythm only — never touches the argument or the numbers. Best for "this reads like a mess, make it clear".
 - **lead-media-script** (40K): registered as "Lead-自媒体口播文案". Produces 3 opening candidates, titles and cover copy, recording notes and a self-check list. Best for "I only have an idea, write me something I can read out loud".
 

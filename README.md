@@ -25,7 +25,7 @@ sjbxsp-kit/
 ## 安装
 
 ```bash
-git clone <this-repo>.git
+git clone https://github.com/koudoubb/sjbxsp-kit.git
 cp -R sjbxsp-kit/skills/* ~/.workbuddy/skills/
 ```
 

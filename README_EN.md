@@ -25,7 +25,7 @@ How they chain: **write first (SJBXWA to tidy, lead-media-script to draft) → t
 ## Install
 
 ```bash
-git clone <this-repo>.git
+git clone https://github.com/koudoubb/sjbxsp-kit.git
 cp -R sjbxsp-kit/skills/* ~/.workbuddy/skills/
 ```
 

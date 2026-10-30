@@ -16,7 +16,7 @@ sjbxsp-kit/
     └── lead-media-script/ 写作② 口播稿创作：从选题/素材写出能直接开口录的逐字稿
 ```
 
-- **sjbxsp**（208K）：10–14 页动态卡片、整篇一次性配音、逐帧对齐字幕、3:4 封面双层安全区。脚本 6 个（render / align / gen_subs / compose / make_cover + 3 个 `.mjs` 模板）、参考文档 6 篇、案例 3 份。
+- **sjbxsp**（208K）：10–14 页动态卡片、整篇一次性配音、逐帧对齐字幕、3:4 封面双层安全区。脚本 6 个（render / align / gen_subs / compose / make_cover + 3 个 `.mjs` 模板）、参考文档 5 篇、案例 3 份。
 - **SJBXWA**（16K）：只改结构与语感，不动观点和数字。适合「这段读起来乱，帮我理清楚」。
 - **lead-media-script**（40K）：`SKILL.md` 里的技能名是「Lead-自媒体口播文案」，含 3 个开头候选、标题封面、录制提示、自检。适合「只有一个想法，要写成能录的稿」。
 
@@ -72,7 +72,7 @@ python <skill>/scripts/make_cover.py --base <project> --src anim/cover-hd.png
 
 1. **Python 解释器路径**：`sjbxsp/SKILL.md` 的「依赖」一节写的是原作者机器的 venv 绝对路径，换成自己的环境即可，脚本本身不含硬编码路径。
 2. **案例里的项目目录**：`sjbxsp/cases/*.md` 第 4 行记录了原项目绝对路径，仅作记录，不影响执行。
-3. **发布环节**：`references/publish-video.md` 是某内容后台的发布/更新流程（含验证码登录、字段映射坑）。不用这套后台就整段忽略——默认交付物只是 mp4 + 封面图，不上传。
+3. **发布环节**：`SKILL.md` 第 10 步只保留了发布到内容后台的两条通用经验（表单字段别多塞、上传是追加行为），具体后台操作细节不在公开范围。默认交付物只有 mp4 + 封面图。
 
 ## 核心硬规则速览
 

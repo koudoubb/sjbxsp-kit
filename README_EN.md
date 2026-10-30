@@ -16,7 +16,7 @@ sjbxsp-kit/
     └── lead-media-script/ Writing ② Scripting: turn a topic or raw material into a record-ready script
 ```
 
-- **sjbxsp** (208K): 10–14 animated card pages, a single-pass voice-over, frame-accurate subtitle sync, and a 3:4 cover with a two-layer safe area. Ships 6 scripts (render / align / gen_subs / compose / make_cover plus 3 `.mjs` templates), 6 reference docs and 3 case studies.
+- **sjbxsp** (208K): 10–14 animated card pages, a single-pass voice-over, frame-accurate subtitle sync, and a 3:4 cover with a two-layer safe area. Ships 6 scripts (render / align / gen_subs / compose / make_cover plus 3 `.mjs` templates), 5 reference docs and 3 case studies.
 - **SJBXWA** (16K): rewrites structure and rhythm only — never touches the argument or the numbers. Best for "this reads like a mess, make it clear".
 - **lead-media-script** (40K): registered as "Lead-自媒体口播文案". Produces 3 opening candidates, titles and cover copy, recording notes and a self-check list. Best for "I only have an idea, write me something I can read out loud".
 
@@ -74,7 +74,7 @@ The full 10-step workflow, hard rules and QA checklist live in `skills/sjbxsp/SK
 
 1. **Python interpreter path**: the "Dependencies" section of `sjbxsp/SKILL.md` hardcodes the original author's venv path. Point it at your own — the scripts themselves contain no hardcoded paths.
 2. **Project paths in case studies**: line 4 of each `sjbxsp/cases/*.md` records the original project directory. Documentation only, does not affect execution.
-3. **Publishing**: `references/publish-video.md` documents an internal CMS publishing flow (captcha login, form-field mapping pitfalls). Ignore that section entirely if you do not use it — the default deliverable is just the mp4 plus the cover image, no upload.
+3. **Publishing**: step 10 of `SKILL.md` keeps only two generic lessons about uploading to a CMS (never add unbound keys to the form model; video upload appends rather than replaces). The concrete internal flow is out of scope here. The default deliverable is just the mp4 plus the cover image.
 
 ## Core hard rules at a glance
 

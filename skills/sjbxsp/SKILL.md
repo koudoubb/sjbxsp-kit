@@ -1,6 +1,6 @@
 ---
 name: sjbxsp
-description: 把一篇口播稿或逐字稿做成 1080×1920 竖版「动态卡片讲解 + 口播 + 白字黑边字幕」的短视频，含配音、逐帧字幕对齐、动态卡片渲染、成片合成与 3:4 封面导出。当用户说「做视频」「口播视频」「动态卡片视频」「把这篇稿子/逐字稿做成视频」「配一下音出片」或直接提到 sjbxsp 时使用。交付 mp4 + 封面图，可选发布到翼狐 AI 后台。
+description: 把一篇口播稿或逐字稿做成 1080×1920 竖版「动态卡片讲解 + 口播 + 白字黑边字幕」的短视频，含配音、逐帧字幕对齐、动态卡片渲染、成片合成与 3:4 封面导出。当用户说「做视频」「口播视频」「动态卡片视频」「把这篇稿子/逐字稿做成视频」「配一下音出片」或直接提到 sjbxsp 时使用。交付 mp4 + 封面图。
 agent_created: true
 ---
 
@@ -207,9 +207,10 @@ python <skill>/scripts/render.py safe --base <project> --page 1
 
 ### 10. 发布（仅用户明确要求时）
 
-读 `references/publish-video.md`。**保存前必做一步：`delete vm.model.source` 之类表单没绑定的键**——填表脚本里 map 的 key 写错一个（把 `from` 写成 `source`）就会触发 `POST /api/note/store` 500，删掉立刻 200。
+发布到内容后台属于内部流程，不在本仓库范围内（原 `references/publish-video.md` 未随仓库公开）。两条通用经验留在这里：
 
-视频上传是**追加**行为，更新已有笔记必须剔除旧 `path`，并确认没有覆盖同主题的图文笔记。
+- 用前端表单实例直接写字段时，**不要往 model 里塞表单没绑定的键**——多一个未知字段就可能让保存接口 500，删掉立刻 200。
+- 视频上传通常是**追加**行为，更新已有条目要剔除旧附件路径，并确认没有覆盖同主题的旧内容。
 
 ## 硬规则
 
@@ -249,12 +250,11 @@ python <skill>/scripts/render.py safe --base <project> --page 1
 - `references/ui-mock.md` — **界面重绘规范**（默认重绘与配额、设计尺寸=槽位尺寸、字号下限、手机表单/手机对话/桌面后台三种骨架、去黑边、检查清单）
 - `references/cutaway.md` — **实拍片段嵌入**（哪些段必须是影像、三种嵌法、洞与 crop 的比例换算、素材不够长时的慢放/定格、录屏裁切、检查清单）
 - `references/pitfalls.md` — 已踩过的坑（字幕漂移、对齐越修越坏、断行、ego-browser 环境、封面贴边与发虚、高亮条与箭头色、图序、人称、抽帧排序）
-- `references/publish-video.md` — 翼狐后台视频笔记发布/更新（含验证码登录、上传追加坑、文件校验）
 - `assets/ui-kit/` — 三种界面骨架 + `ui.css` + `shoot.mjs`（已实测）
 
 ## 依赖
 
 - `ffmpeg` / `ffprobe`（本机构建无 libass，字幕走逐帧 alpha 合成）
-- Python venv：`/Users/imacw/.workbuddy/binaries/python/envs/default/bin/python`（需 numpy、Pillow）
+- Python venv：`~/.workbuddy/binaries/python/envs/default/bin/python`（需 numpy、Pillow）
 - `whisper`（faster-whisper，模型在 `~/Models/whisper/`，`HF_ENDPOINT=https://hf-mirror.com`）
 - `ego-browser`（CDP 逐帧截图）

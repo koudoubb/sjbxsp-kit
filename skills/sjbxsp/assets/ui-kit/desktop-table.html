@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!-- 桌面后台表格骨架：5–6 列、5–6 行是信息量上限。尺寸 = 卡片槽位尺寸（示例 928×427）。 -->
+<html lang="zh-CN"><head><meta charset="utf-8">
+<link rel="stylesheet" href="ui.css">
+<style>
+  /* 928×427 是卡片里的最终显示尺寸；字号按“缩到 1080 竖屏仍能读”放大 */
+  html,body{width:928px;height:427px}
+  .app{width:928px;height:427px;display:flex;background:#FBF7F4;overflow:hidden}
+
+  .side{width:82px;flex:0 0 auto;background:#241B36;display:flex;flex-direction:column;align-items:center;
+    padding:13px 0;gap:20px}
+  .side .logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(140deg,#FF7A45,#FF4E7A);
+    display:flex;align-items:center;justify-content:center;font-size:19px}
+  .side .mi{display:flex;flex-direction:column;align-items:center;gap:4px;color:#8E86A3;font-size:12px;font-weight:700}
+  .side .mi .g{width:30px;height:27px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+    font-size:15px}
+  .side .mi.on{color:#FFC9AE}
+  .side .mi.on .g{background:rgba(255,106,69,.22)}
+
+  .main{flex:1;display:flex;flex-direction:column;min-width:0}
+  .topbar{height:50px;flex:0 0 auto;background:#fff;border-bottom:1px solid #F1E5DD;
+    display:flex;align-items:center;padding:0 16px;gap:10px}
+  .topbar h1{font-size:22px;font-weight:800;letter-spacing:-.02em}
+  .topbar .crumb{font-size:13px;color:var(--mute);font-weight:700}
+  .topbar .search{margin-left:auto;width:186px;height:30px;border-radius:15px;background:#F7F2EE;
+    display:flex;align-items:center;padding:0 12px;font-size:13px;color:#A79FB4;font-weight:600}
+  .topbar .av{width:30px;height:30px;border-radius:50%;background:#FFE0D2;color:#C2410C;
+    font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+  .body{flex:1;padding:10px 15px 12px;display:flex;flex-direction:column;gap:9px;min-height:0}
+
+  .kpi{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border:1px solid #F1E5DD;
+    border-radius:13px;overflow:hidden;flex:0 0 auto}
+  .kpi .it{padding:9px 15px;border-right:1px solid #F6EDE7}
+  .kpi .it:last-child{border-right:0}
+  .kpi .lab{font-size:13px;color:var(--mute);font-weight:700;letter-spacing:.02em}
+  .kpi .val{font-family:'DIN Alternate',sans-serif;font-size:28px;font-weight:800;letter-spacing:-.01em;
+    line-height:1.1;margin-top:1px}
+  .kpi .val em{font-style:normal;font-size:14px;font-weight:700;color:var(--mute);margin-left:2px}
+  .kpi .v1{color:var(--ink)}.kpi .v2{color:#B4700A}.kpi .v3{color:#2A5FD0}.kpi .v4{color:var(--mint)}
+
+  .tbl{flex:1;background:#fff;border:1px solid #F1E5DD;border-radius:13px;overflow:hidden;
+    display:flex;flex-direction:column;min-height:0}
+  .tr{display:grid;grid-template-columns:104px 116px 128px 110px 74px 1fr;align-items:center;
+    padding:0 15px;font-size:19px;font-weight:600}
+  .thead{height:31px;background:#FDF6F2;color:#9A91AE;font-size:13px;font-weight:800;letter-spacing:.06em}
+  .tbody{flex:1;display:flex;flex-direction:column}
+  .tbody .tr{flex:1;border-top:1px solid #F8F1EC;color:#4E4560}
+  .tbody .tr:first-child{border-top:0}
+  .oid{font-family:'DIN Alternate',sans-serif;font-weight:800;color:var(--ink);font-size:20px}
+  .kid{display:flex;align-items:center;gap:8px;color:var(--ink);font-weight:800;font-size:21px}
+  .kid i{width:26px;height:26px;border-radius:50%;background:#FFF0E8;color:#D2691E;
+    font-size:13px;font-style:normal;display:flex;align-items:center;justify-content:center;font-weight:800}
+  .chip{height:26px;padding:0 11px;border-radius:13px;font-size:15px;font-weight:800}
+  .barrow{display:flex;align-items:center;gap:8px}
+  .bar{height:6px;border-radius:3px;background:#F3EAE4;position:relative;overflow:hidden;width:150px}
+  .bar span{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:linear-gradient(90deg,#FF7A45,#FF4E7A)}
+  .barrow b{font-size:15px;font-weight:800;color:var(--mute);font-family:'DIN Alternate',sans-serif}
+  .tm{font-size:16px;color:#9A91AE;font-weight:700}
+</style></head>
+<body>
+<div class="app">
+  <div class="side">
+    <div class="logo">🎂</div>
+    <div class="mi on"><div class="g">▤</div>订单</div>
+    <div class="mi"><div class="g">☺</div>客户</div>
+    <div class="mi"><div class="g">⚙</div>设置</div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <h1>生日视频 · 订单</h1>
+      <span class="crumb">全部 / 制作中</span>
+      <div class="search">搜索小名或订单号</div>
+      <div class="av">麦</div>
+    </div>
+
+    <div class="body">
+      <div class="kpi">
+        <div class="it"><div class="lab">本月订单</div><div class="val v1">128<em>单</em></div></div>
+        <div class="it"><div class="lab">待制作</div><div class="val v2">7<em>单</em></div></div>
+        <div class="it"><div class="lab">今日已交付</div><div class="val v3">12<em>单</em></div></div>
+        <div class="it"><div class="lab">本月收入</div><div class="val v4">¥3,840</div></div>
+      </div>
+
+      <div class="tbl">
+        <div class="tr thead"><span>订单号</span><span>孩子</span><span>风格</span><span>状态</span><span>修改</span><span>进度 / 交付</span></div>
+        <div class="tbody">
+          <div class="tr"><span class="oid">B-1042</span><span class="kid"><i>星</i>小星</span><span>恐龙世界</span>
+            <span><span class="chip doing">制作中</span></span><span>1 次</span>
+            <span class="barrow"><span class="bar"><span style="width:62%"></span></span><b>62%</b></span></div>
+          <div class="tr"><span class="oid">B-1041</span><span class="kid"><i>果</i>果果</span><span>太空冒险</span>
+            <span><span class="chip check">待确认</span></span><span>2 次</span>
+            <span class="barrow"><span class="bar"><span style="width:100%"></span></span><b>待审</b></span></div>
+          <div class="tr"><span class="oid">B-1040</span><span class="kid"><i>一</i>一一</span><span>恐龙世界</span>
+            <span><span class="chip done">已交付</span></span><span>0 次</span>
+            <span class="tm">今天 15:20</span></div>
+          <div class="tr"><span class="oid">B-1039</span><span class="kid"><i>桃</i>桃子</span><span>太空冒险</span>
+            <span><span class="chip warn">待制作</span></span><span>0 次</span>
+            <span class="tm">明天 10:00</span></div>
+          <div class="tr"><span class="oid">B-1038</span><span class="kid"><i>豆</i>豆豆</span><span>恐龙世界</span>
+            <span><span class="chip done">已交付</span></span><span>1 次</span>
+            <span class="tm">昨天 21:10</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

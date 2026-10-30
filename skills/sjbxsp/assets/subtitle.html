@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:420px;overflow:hidden;background:transparent}
+  body{font-family:'PingFang SC','Hiragino Sans GB',-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+  #wrap{position:absolute;left:0;right:0;bottom:92px;text-align:center;padding:0 54px}
+  #txt{display:inline-block;font-size:58px;line-height:1.42;font-weight:800;color:#fff;letter-spacing:.01em;text-align:center;
+    text-shadow:4px 0 0 #000,-4px 0 0 #000,0 4px 0 #000,0 -4px 0 #000,
+                3px 3px 0 #000,-3px 3px 0 #000,3px -3px 0 #000,-3px -3px 0 #000,
+                0 10px 26px rgba(0,0,0,.55)}
+</style></head>
+<body>
+<div id="wrap"><span id="txt"></span></div>
+<script>
+  window.setText = function (s) {
+    document.getElementById('txt').innerHTML = s.replace(/\n/g, '<br>');
+  };
+  window.setText('');
+</script>
+</body></html>

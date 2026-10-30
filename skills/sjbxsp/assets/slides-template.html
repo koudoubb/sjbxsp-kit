@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* 每页专用样式写在这里；通用骨架已在 style.css */
+  /* 封面插画 */
+  .art{position:absolute;left:337px;top:1086px;width:406px;height:406px;z-index:5}
+  /* 截图卡（object-position:top 保证频道页顶部信息不被裁） */
+  .shot{position:absolute;z-index:6;border-radius:22px;overflow:hidden;background:#fff;
+    border:2px solid rgba(255,106,69,.16);box-shadow:0 18px 44px rgba(60,35,25,.10)}
+  .shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+  .shotcap{position:absolute;z-index:6;font-size:25px;color:var(--ink2);line-height:1.4}
+  .shotcap b{display:block;font-size:31px;color:var(--ink);font-weight:800;margin-bottom:5px}
+  /* KPI 竖排（数字必须带口径） */
+  .kpis{position:absolute;z-index:6}
+  .kpis .k{background:#fff;border:2px solid rgba(255,106,69,.16);border-radius:22px;padding:32px 30px;
+    margin-bottom:30px;box-shadow:0 14px 34px rgba(60,35,25,.06)}
+  .kpis .k s{display:block;font-size:23px;color:var(--muted);text-decoration:none}
+  .kpis .k b{font-family:'DIN Alternate',sans-serif;font-size:58px;font-weight:800;color:var(--brand-d);line-height:1.1}
+  .kpis .k b em{font-style:normal;font-size:28px;margin-left:4px}
+  /* 两张大数字 */
+  .bignums{position:absolute;left:76px;width:928px;display:flex;gap:24px;z-index:6}
+  .bignums .bn{flex:1;background:#fff;border:2px solid rgba(255,106,69,.16);border-radius:26px;
+    padding:28px 30px;box-shadow:0 16px 40px rgba(60,35,25,.07)}
+  .bignums .bn .k{font-size:23px;color:var(--ink2)}
+  .bignums .bn .v{font-family:'DIN Alternate',sans-serif;font-size:82px;font-weight:800;color:var(--brand-d);line-height:1.1;margin-top:4px}
+  .bignums .bn .v i{font-style:normal;font-size:32px;margin-left:4px}
+  /* 对比表 */
+  .tbl{position:absolute;left:76px;width:928px;z-index:6;background:#fff;border:2px solid rgba(255,106,69,.14);
+    border-radius:24px;overflow:hidden;box-shadow:0 16px 40px rgba(60,35,25,.07)}
+  .tbl .tr{display:flex;align-items:center;padding:21px 30px;border-bottom:1px solid var(--paper2)}
+  .tbl .tr:last-child{border-bottom:0}
+  .tbl .tr.hd{padding:16px 30px;background:var(--tint2)}
+  .tbl .lab{flex:1;font-size:27px;color:var(--ink2)}
+  .tbl .tr.hd .lab{font-size:23px;color:var(--muted)}
+  .tbl .c{flex:0 0 230px;text-align:right;font-family:'DIN Alternate',sans-serif;font-size:29px;font-weight:800;color:var(--ink)}
+  .tbl .tr.hd .c{font-size:23px;color:var(--muted);font-weight:700}
+  /* 编号列表 */
+  .list{position:absolute;left:76px;width:928px;z-index:6}
+  .list .it{display:flex;gap:22px;align-items:flex-start;padding:22px 0}
+  .list .it .dotn{flex:0 0 46px;height:46px;border-radius:14px;background:var(--tint);color:var(--brand-d);
+    font-family:'DIN Alternate',sans-serif;font-size:24px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .list.neg .it .dotn{background:var(--danger-t);color:var(--danger)}
+  .list .it .tx{font-size:34px;font-weight:700;line-height:1.4;color:var(--ink)}
+  .list .it .sub{font-size:25px;color:var(--ink2);margin-top:4px;line-height:1.4}
+</style></head>
+<body>
+<div id="stage">
+  <div class="grid" id="grid"></div>
+  <div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
+
+  <!-- ============ 1 封面 ============
+       双层安全区：① 内容落在 y 240~1680（平台 3:4 裁切）
+                   ② 四边再留 ≥92px 内边距（平台还会裁圆角，贴边会被切）
+       下面这组坐标已按双层安全区实测，四边最小留白 94px，改数值后必须跑 check_safe.mjs -->
+  <section class="slide" data-i="1">
+    <div class="top" data-a="in" data-d="0.10" data-y="-24" style="top:334px;left:96px;right:96px">
+      <span class="pill" data-safe>栏目名 · 副题</span><span class="pg" data-safe>01</span>
+    </div>
+    <div class="kick" data-a="in" data-d="0.28" style="top:416px;left:96px">一句赛道/主题定位</div>
+    <h1 data-a="in" data-d="0.44" data-y="46" style="top:500px;left:96px;width:888px">
+      主标题第一行<br>
+      <span class="hl">关键词第二行<i data-a="wipe" data-d="1.05" data-dur="0.5"></i></span>
+    </h1>
+
+    <!-- 大数字：数字 + 单位 + rule + 口径小字，四件套不能少 -->
+    <div class="num" data-a="in" data-d="1.15" data-y="18" style="top:760px;left:96px">
+      <span class="big" data-a="num" data-d="1.15" data-dur="0.9" data-to="475" data-dec="0">0</span>
+      <span class="unit">万次播放</span>
+      <span class="rule" data-a="bar" data-d="1.8" data-dur="0.45" style="width:300px"></span>
+    </div>
+    <p class="lead" data-a="in" data-d="1.9" style="top:958px;left:96px;width:888px;font-size:31px">
+      口径说明：单条视频的最高播放量<br>账号才做了一年
+    </p>
+
+    <svg class="art" viewBox="0 0 760 760" xmlns="http://www.w3.org/2000/svg" data-a="pop" data-d="2.05" data-dur="0.75">
+      <defs><linearGradient id="bodyG" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="var(--brand)"/><stop offset="55%" stop-color="var(--brand)"/><stop offset="100%" stop-color="var(--brand-d)"/>
+      </linearGradient></defs>
+      <ellipse cx="380" cy="700" rx="210" ry="26" fill="var(--ink)" opacity=".18"/>
+      <g stroke="var(--ink)" stroke-width="9" stroke-linejoin="round">
+        <rect x="196" y="118" width="368" height="232" rx="48" fill="url(#bodyG)"/>
+        <circle cx="380" cy="234" r="84" fill="var(--paper)"/>
+        <circle cx="380" cy="234" r="46" fill="var(--brand-d)" stroke-width="0"/>
+        <rect x="292" y="440" width="176" height="250" rx="82" fill="url(#bodyG)"/>
+      </g>
+    </svg>
+
+    <div style="position:absolute;left:96px;bottom:334px;display:flex;gap:14px;z-index:6">
+      <span class="tag" data-a="pop" data-d="2.9" data-dur="0.4" data-safe>标签一</span>
+      <span class="tag" data-a="pop" data-d="3.03" data-dur="0.4" data-safe>标签二</span>
+      <span class="tag" data-a="pop" data-d="3.16" data-dur="0.4" data-safe>标签三</span>
+    </div>
+  </section>
+
+  <!-- ============ 2 截图页：真实网页截图 + KPI 竖排 + 结论条 ============ -->
+  <section class="slide" data-i="2">
+    <div class="top" data-a="in" data-d="0.1" data-y="-24">
+      <span class="pill">页眉标签</span><span class="pg">02</span>
+    </div>
+    <h2 data-a="in" data-d="0.25" style="top:250px;font-size:78px">结论句，<br><span class="hl">关键词<i data-a="wipe" data-d="0.85" data-dur="0.45"></i></span></h2>
+    <p class="lead" data-a="in" data-d="0.7" style="top:466px;font-size:29px">一行补充说明</p>
+
+    <div class="shot" data-a="pop" data-d="1.0" data-dur="0.55" style="left:76px;top:540px;width:520px;height:596px">
+      <img src="shot-a.png" alt="频道页截图">
+    </div>
+
+    <div class="kpis" style="left:632px;top:540px;width:372px">
+      <div class="k" data-a="pop" data-d="1.35" data-dur="0.5">
+        <s>订阅（口径）</s><b><span data-a="num" data-d="1.6" data-dur="0.9" data-to="373" data-dec="0">0</span><em>万</em></b>
+      </div>
+      <div class="k" data-a="pop" data-d="1.5" data-dur="0.5">
+        <s>视频数</s><b><span data-a="num" data-d="1.75" data-dur="0.8" data-to="565" data-dec="0">0</span><em>条</em></b>
+      </div>
+      <div class="k" data-a="pop" data-d="1.65" data-dur="0.5" style="background:var(--tint);border-color:rgba(255,106,69,.28)">
+        <s>最高一条播放</s><b><span data-a="num" data-d="1.9" data-dur="1.0" data-to="2451" data-dec="0">0</span><em>万次</em></b>
+      </div>
+    </div>
+
+    <div data-a="in" data-d="2.3" style="position:absolute;left:76px;top:1260px;width:928px;z-index:6;
+      background:var(--sun-t);border-left:8px solid var(--sun);border-radius:20px;padding:26px 34px;font-size:29px;line-height:1.5;color:#4A3208">
+      一句结论（金色条 = 判断/洞察；蓝色条 = 事实/数据）
+    </div>
+  </section>
+
+  <!-- ============ 3 数据页：两张大数字 + 口径表 ============ -->
+  <section class="slide" data-i="3">
+    <div class="top" data-a="in" data-d="0.1" data-y="-24">
+      <span class="pill">数据</span><span class="pg">03</span>
+    </div>
+    <h2 data-a="in" data-d="0.25" style="top:250px;font-size:76px">按某口径估算，<br>累计 <span class="hl">多少万元<i data-a="wipe" data-d="0.9" data-dur="0.45"></i></span></h2>
+    <p class="lead" data-a="in" data-d="0.72" style="top:520px;font-size:29px">这一页全是估算，不是实收</p>
+
+    <div class="bignums" data-a="pop" data-d="1.0" data-dur="0.55" style="top:606px">
+      <div class="bn"><div class="k">A 号 · 累计收益</div>
+        <div class="v"><span data-a="num" data-d="1.2" data-dur="0.9" data-to="42.3" data-dec="1">0</span><i>万元</i></div></div>
+      <div class="bn"><div class="k">B 号 · 累计收益</div>
+        <div class="v"><span data-a="num" data-d="1.35" data-dur="0.9" data-to="6.5" data-dec="1">0</span><i>万元</i></div></div>
+    </div>
+
+    <div class="tbl" data-a="in" data-d="1.9" style="top:900px">
+      <div class="tr hd"><div class="lab">口径</div><div class="c">A 号</div><div class="c">B 号</div></div>
+      <div class="tr"><div class="lab">累计收益</div><div class="c">42.3 万元</div><div class="c">6.5 万元</div></div>
+      <div class="tr"><div class="lab">月均收益</div><div class="c">3.1 万元</div><div class="c">1.9 万元</div></div>
+      <div class="tr"><div class="lab">单条收益中位数</div><div class="c">1,961 元</div><div class="c">2,112 元</div></div>
+    </div>
+  </section>
+
+</div>
+<script src="engine.js"></script>
+</body></html>

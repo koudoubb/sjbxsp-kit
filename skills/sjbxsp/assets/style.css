@@ -1,0 +1,91 @@
+/* 动态卡片引擎：1080×1920 竖屏骨架
+   配色全部走变量，一套视频一套主题色。
+   下面 :root 是「暖珊瑚」示例；开新片时按 references/layout-rules.md 的
+   “四套现成主题”整组替换，只改这一处，页面里禁止写裸色值。 */
+:root{
+  /* 文字 */
+  --ink:#241B36;          /* 主标题 */
+  --ink2:#5A5170;         /* 正文 */
+  --muted:#9B92AE;        /* 辅助说明 */
+  /* 主色 */
+  --brand:#FF6A45;        /* 珊瑚 */
+  --brand-d:#D9431F;      /* 深珊瑚（用于强调字/数字） */
+  --brand-g:linear-gradient(100deg,#FF7A45,#FF4E7A);
+  --rose:#EF4C7B;
+  --sun:#F4A62A;          /* 金 */
+  --sun-t:#FFF3DC;
+  --mint:#12A17B;         /* 正向 / 已完成 */
+  --mint-t:#E3F7EF;
+  --danger:#B8402E;
+  --danger-t:#FFEAE5;
+  /* 底色 */
+  --paper:#FFFBF7;
+  --paper2:#FFF2E8;
+  --tint:#FFEDE3;         /* 浅主色底（卡片强调） */
+  --tint2:#FFF6F1;
+  --gray-t:#F5F0EA;       /* 中性底（对比"以前"） */
+  --line:rgba(255,106,69,.17);
+  --arrow:#F7C9B6;
+  --hl:rgba(255,183,77,.5);   /* 标题高亮：金色荧光笔，与珊瑚文字形成对比 */
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--paper)}
+body{font-family:'PingFang SC','Hiragino Sans GB',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink)}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;
+  background:radial-gradient(120% 80% at 50% 0%, #FFFFFF 0%, var(--paper) 44%, var(--paper2) 100%)}
+.grid{position:absolute;inset:-20%;opacity:.4;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:72px 72px}
+.glow{position:absolute;border-radius:50%;filter:blur(60px)}
+.g1{width:900px;height:900px;left:-10%;top:-8%;background:rgba(255,106,69,.16)}
+.g2{width:760px;height:760px;right:-16%;top:26%;background:rgba(239,76,123,.13)}
+.g3{width:620px;height:620px;left:6%;bottom:2%;background:rgba(244,166,42,.15)}
+
+/* 顶部 */
+.top{position:absolute;left:76px;right:76px;top:88px;display:flex;justify-content:space-between;align-items:center;z-index:6}
+.pill{background:var(--brand-g);color:#fff;font-size:24px;font-weight:700;padding:13px 28px;border-radius:999px;
+  letter-spacing:.03em;box-shadow:0 10px 24px rgba(255,106,69,.28)}
+.pill.soft{background:var(--tint);color:var(--brand-d);box-shadow:none}
+.pg{font-size:24px;color:var(--muted);letter-spacing:.08em}
+
+/* 标题 */
+.kick{position:absolute;left:78px;top:250px;font-size:46px;font-weight:700;letter-spacing:.04em;color:var(--ink2);z-index:6}
+h1{position:absolute;left:76px;top:326px;width:930px;font-size:98px;line-height:1.16;font-weight:800;letter-spacing:-.035em;z-index:6}
+h2{position:absolute;left:76px;top:236px;width:930px;font-size:84px;line-height:1.2;font-weight:800;letter-spacing:-.03em;z-index:6}
+.hl{position:relative;display:inline-block}
+.hl i{position:absolute;left:-8px;right:-8px;bottom:6px;height:.34em;background:var(--hl);border-radius:3px;z-index:-1;transform-origin:left center}
+
+.lead{position:absolute;left:78px;width:900px;font-size:33px;line-height:1.6;color:var(--ink2);z-index:6}
+
+/* 数字 */
+.num{position:absolute;left:76px;display:flex;align-items:flex-end;gap:14px;z-index:6}
+.num .big{font-family:'DIN Alternate','Helvetica Neue',sans-serif;font-size:168px;font-weight:800;line-height:.86;letter-spacing:-.04em;color:var(--brand-d)}
+.num .unit{font-size:42px;font-weight:700;color:var(--brand-d);padding-bottom:16px}
+.num .rule{position:absolute;left:4px;bottom:-22px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--brand),var(--sun));transform-origin:left center}
+
+/* 字幕：白字 + 黑边，最多两行 */
+.cap{position:absolute;left:0;right:0;bottom:112px;text-align:center;padding:0 56px;z-index:9}
+.cap p{display:inline-block;font-size:54px;line-height:1.42;font-weight:800;color:#fff;letter-spacing:.01em;text-align:center;
+  text-shadow:3px 0 0 #000,-3px 0 0 #000,0 3px 0 #000,0 -3px 0 #000,2px 2px 0 #000,-2px 2px 0 #000,2px -2px 0 #000,-2px -2px 0 #000,0 8px 22px rgba(0,0,0,.45)}
+
+/* 通用卡片 / 列表 */
+.cardw{position:absolute;left:76px;width:928px;z-index:6;background:#fff;border:2px solid var(--line);border-radius:26px;
+  box-shadow:0 16px 40px rgba(60,35,25,.07)}
+.row{display:flex;align-items:center;gap:26px;padding:26px 34px}
+.row .k{flex:0 0 auto;font-family:'DIN Alternate',sans-serif;font-size:36px;font-weight:800;color:var(--brand)}
+.row .t{font-size:36px;font-weight:700;color:var(--ink);line-height:1.35}
+.row .d{font-size:26px;color:var(--ink2);margin-top:6px;line-height:1.45}
+.sep{height:2px;background:var(--line);margin:0 34px}
+
+.tag{display:inline-block;background:#fff;border:2px solid rgba(255,106,69,.24);color:var(--brand-d);font-size:25px;font-weight:600;
+  padding:14px 26px;border-radius:999px;box-shadow:0 12px 26px rgba(60,35,25,.07)}
+
+/* 动画初值，避免首帧闪 */
+[data-a]{will-change:transform,opacity}
+[data-a="in"],[data-a="pop"]{opacity:0}
+[data-a="wipe"],[data-a="bar"]{transform:scaleX(0);transform-origin:left center}
+[data-a="grow"]{transform:scaleY(0);transform-origin:bottom center}
+
+/* 幻灯片切换 */
+.slide{position:absolute;inset:0;display:none}
+.slide.on{display:block}
